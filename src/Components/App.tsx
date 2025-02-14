@@ -22,7 +22,7 @@ function App() {
     async function fetchData() {
       try {
         setStatus(Status.Loading);
-        const usersResponce = await axios.get(`${baseUrl}/users@#@@`);
+        const usersResponce = await axios.get(`${baseUrl}/users`);
         const todosResponce = await axios.get(`${baseUrl}/todos`);
         setUsers(usersResponce.data);
         setTodos(todosResponce.data);
