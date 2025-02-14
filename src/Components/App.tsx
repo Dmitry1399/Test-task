@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { User } from '../types/userType';
-import { Todo } from '../types/todoType';
+import { UserWithTodos } from '../types/dtoType';
+import { mergeUsersAndTodos } from '../utils/utils';
 import { Table } from './Table';
 import NotFound from './NotFound';
 import axios from 'axios';
@@ -13,9 +13,9 @@ enum Status {
   Succes,
   Loading,
 }
+
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [dataList, setDataList] = useState<UserWithTodos[]>([]);
   const [status, setStatus] = useState<Status>(Status.Idle);
 
   useEffect(() => {
@@ -24,12 +24,11 @@ function App() {
         setStatus(Status.Loading);
         const usersResponce = await axios.get(`${baseUrl}/users`);
         const todosResponce = await axios.get(`${baseUrl}/todos`);
-        setUsers(usersResponce.data);
-        setTodos(todosResponce.data);
+        setDataList(mergeUsersAndTodos(usersResponce.data, todosResponce.data));
         setStatus(Status.Succes);
       } catch (error) {
         console.error(error);
-        setStatus(Status.Error)
+        setStatus(Status.Error);
       }
     }
 
@@ -50,7 +49,7 @@ function App() {
       <p className="font-inter text-white-600/30 dark:text-gray-400/45 text-base mb-6 font-normal text-xs sm:text-[16px] text-left w-full">
         User task table for effective planning.
       </p>
-      <Table users={users} todos={todos} />
+      <Table dataList={dataList} />
     </div>
   );
 }
