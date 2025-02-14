@@ -43,7 +43,7 @@ function App() {
   }
   return (
     <div className="flex flex-col items-center justify-center p-4 bg-primary text-white min-h-screen">
-      <h1 className="font-inter text-white text-2xl sm:text-5xl font-bold mb-2 text-left w-full">
+      <h1 className="font-inter text-2xl sm:text-5xl font-bold mb-2 text-left w-full">
         User To-Do Table
       </h1>
       <p className="font-inter text-white-600/30 dark:text-gray-400/45 text-base mb-6 font-normal text-xs sm:text-[16px] text-left w-full">
